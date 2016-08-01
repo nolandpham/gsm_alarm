@@ -2,9 +2,10 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+// class Project extends Authenticatable
+class Project extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -23,4 +24,11 @@ class User extends Authenticatable
     protected $hidden = [
         'token_id', /*'password', 'remember_token',*/
     ];
+
+    protected $table = 'projects';
+
+    public function token()
+    {
+        return $this->hasMany('App\Token');
+    }
 }

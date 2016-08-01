@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('panel', "AlarmController@panel");
+Route::get('alarm', "AlarmController@alarm");
+Route::get('alarm_stop', "AlarmController@alarm");
+Route::get('areas', "AlarmController@areas");
+Route::get('gsm_status', "GsmController@status");
