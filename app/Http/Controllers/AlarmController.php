@@ -20,7 +20,6 @@ class AlarmController extends Controller
 
     public function alarm( Request $request) {
         if( $this->validator( $request)->fails())
-            // validate false
             return 0;
 
         // Update database

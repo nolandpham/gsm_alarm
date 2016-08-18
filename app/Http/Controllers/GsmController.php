@@ -16,6 +16,21 @@ class GsmController extends Controller
     }
     
     public function status() {
-    	return "this is status";
+        $areas = Area::where("is_deleted", 0)->get();
+        return Response::json(array(
+            'error' => false,
+            'areas' => Area::shortFormat( $areas),
+            'status_code' => 200
+        ));
+    }
+
+    public function reset() {
+        if( $this->validator( $request)->fails())
+            return 0;
+
+        Area::where("is_deleted", 0)
+            ->update(['status' => Area::STATUS_LIVING]);
+
+        return 1;
     }
 }
