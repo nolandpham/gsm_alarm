@@ -5,29 +5,33 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Validator;
+use Response;
 use App\Area;
 
 class GsmController extends Controller
 {
-    protected function validator(Request $req)
-    {
-        return Validator::make($req->all(), [
-            // 'token' => 'required|alpha_num|size:8',
-            'token' => 'required|alpha_num|size:8|exists:tokens,str',
-        ]);
-    }
     
-    public function status() {
-        $areas = Area::where("is_deleted", 0)->get();
-        return Response::json(array(
-            'error' => false,
-            'areas' => Area::shortFormat( $areas),
-            'status_code' => 200
-        ));
+    public function inactive( Request $request) {
+        $validator = Validator::make($request->all(), [
+            'token' => 'required|alpha_num|size:8|exists:tokens,str',
+            'area' => 'required|integer|exists:areas,id',
+        ]);
+        if( $validator->fails())
+            return 0;
+
+        // Update database
+        Area::where("id", $request->input("area"))
+            ->where("is_deleted", 0)
+            ->update(['status' => Area::$STATUS_INACTIVE]);
+        
+        return 1;
     }
 
     public function reset( Request $request) {
-        if( $this->validator( $request)->fails())
+        $validator = Validator::make($request->all(), [
+            'token' => 'required|alpha_num|size:8|exists:tokens,str',
+        ]);
+        if( $validator->fails())
             return 0;
 
         Area::where("is_deleted", 0)
