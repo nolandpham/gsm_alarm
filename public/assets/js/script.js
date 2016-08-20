@@ -1,6 +1,6 @@
 jQuery( document).ready( function( $) {
 	// All define
-	const DELAY_TIME = 2;// 2sec
+	const DELAY_TIME = 10;// 10sec
 
 	function red_blink( area_id) {
 		var box = $("#area_" + area_id).removeClass("box_green box_yellow").addClass("box_red");
@@ -22,7 +22,6 @@ jQuery( document).ready( function( $) {
 	function main() {
 		$.get( host + "/areas", function( response) {
 			// do alert
-			alert( "Found some error in system. Please check!");
 			$.each( response['areas'], function( key, area) {
 				if( area["status"] == 0) {
 					yellow_blink( area["id"]);
