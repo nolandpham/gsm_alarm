@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 // Hardware APIs
 Route::get('alarm', "AlarmController@alarm");
-Route::get('alarm_stop', "AlarmController@alarm");
+// Route::get('alarm_stop', "AlarmController@alarm");
 Route::get('gsm_status', "GsmController@status");
 Route::get('reset', "GsmController@reset");
 

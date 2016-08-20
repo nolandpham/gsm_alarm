@@ -17,16 +17,22 @@ jQuery( document).ready( function( $) {
 	function stop_blink( area_id) {
 		$("#area_" + area_id).removeClass("box_yellow box_red").addClass("box_green").stop();
 	}
-	
+	function scroll_to_area( area_id) {
+		$('html, body').animate({
+	        scrollTop: $("#area_" + area_id).offset().top
+	    }, 2000);
+	}
+
 	var areas_status = [];
 	function main() {
 		$.get( host + "/areas", function( response) {
-			// do alert
 			$.each( response['areas'], function( key, area) {
 				if( area["status"] == 0) {
+					scroll_to_area( area["id"]);
 					yellow_blink( area["id"]);
 
 				} else if( area["status"] == 2) {
+					scroll_to_area( area["id"]);
 					red_blink( area["id"]);
 
 				} else {// same 1 or other
