@@ -17,7 +17,9 @@ class Area extends Model
     		$result[] = array(
     			"id" => intval( $area->id),
     			"name" => $area->name,
-    			"status" => intval( $area->status),
+                "status" => intval( $area->status),
+                "lat" => $area->lat,
+                "lng" => $area->lng,
     		);
     	}
 

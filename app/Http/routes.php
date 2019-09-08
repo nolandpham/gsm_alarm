@@ -23,4 +23,5 @@ Route::get('reset', "GsmController@reset");
 
 // Panel Fire Alarm
 Route::get('panel', "AlarmController@panel");
+Route::get('map', "AlarmController@mapPanel");
 Route::get('areas', "AlarmController@areas");

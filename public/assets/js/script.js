@@ -1,6 +1,6 @@
 jQuery( document).ready( function( $) {
 	// All define
-	const DELAY_TIME = 2;// 2sec
+	const DELAY_TIME = 200;// 2sec
 
 	function red_blink( area_id) {
 		var box = $("#area_" + area_id).removeClass("box_green box_yellow").addClass("box_red");

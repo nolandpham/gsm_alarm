@@ -15,6 +15,7 @@ class AlarmController extends Controller
         return Validator::make($req->all(), [
             'token' => 'required|alpha_num|size:8|exists:tokens,str',
             'area' => 'required|integer|exists:areas,id',
+            'status' => 'required|in:0,1,2'
         ]);
     }
 
@@ -23,10 +24,9 @@ class AlarmController extends Controller
             return 0;
 
         // Update database
-        $status = $request->is("alarm_stop")?1:2;
         Area::where("id", $request->input("area"))
             ->where("is_deleted", 0)
-            ->update(['status' => $status]);
+            ->update(['status' => $request->input("status")]);
         
         return 1;
     }
@@ -35,6 +35,13 @@ class AlarmController extends Controller
         $areas = Area::where("is_deleted", 0)->get();
         return view('panel', array(
             'areas' => Area::shortFormat( $areas)
+        ));
+    }
+
+    public function mapPanel() {
+        $areas = Area::where("is_deleted", 0)->get();
+        return view('map_panel', array(
+            'areas' => json_encode(Area::shortFormat( $areas))
         ));
     }
 
